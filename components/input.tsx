@@ -7,10 +7,14 @@ export const InputCom = () => {
   const [data, setData] = useState<string[]>([]);
 
   const handleClick = () => {
+    if (text.trim() === '') return;
     setData((prev) => [...prev, text]);
     setText('');
   };
 
+  const removeTodo = (indexToRemove: number) => {
+    setData((prev) => prev.filter((_, index) => index !== indexToRemove));
+  }
   return (
     <div>
       <input
@@ -29,8 +33,8 @@ export const InputCom = () => {
       </button>
       <ul className="mt-4 border-t-2 border-gray-300 pt-2">
         {data.map((item, index) => (
-          <li key={index} className=" py-1">
-            {item}
+          <li key={index} className=" py-1 flex justify-between">
+            {item} <button className="text-red-500 hover:text-red-700" onClick={() => removeTodo(index)}>delete</button>
           </li>
         ))}
       </ul>
